@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Products>
+    <productList Id="1">
+        <Name>Dodecahedron</Name>
+        <Price>2.95</Price>
+        <Purchasable>false</Purchasable>
+        <Description/>
+        <Reviews>
+            <Review>
+                <NbStar>5</NbStar>
+                <Body>I love this product!</Body>
+                <Author>joe@thomas.com</Author>
+            </Review>
+            <Review>
+                <NbStar>1</NbStar>
+                <Body>This product sucks</Body>
+                <Author>tim@hater.com</Author>
+            </Review>
+        </Reviews>
+    </productList>
+    <productList Id="2">
+        <Name>Icosahedron</Name>
+        <Price>3.95</Price>
+        <Purchasable>true</Purchasable>
+        <Description/>
+        <Reviews>
+            <Review>
+                <NbStar>5</NbStar>
+                <Body>I love this product!</Body>
+                <Author>joe@thomas.com</Author>
+            </Review>
+            <Review>
+                <NbStar>1</NbStar>
+                <Body>This product sucks</Body>
+                <Author>tim@hater.com</Author>
+            </Review>
+            <Review>
+                <NbStar>5</NbStar>
+                <Body>This one shine a lots!</Body>
+                <Author>vince@flash.com</Author>
+            </Review>
+        </Reviews>
+    </productList>
+</Products>
