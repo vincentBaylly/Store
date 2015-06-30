@@ -6,7 +6,7 @@
 			 restrict : "E",
 			 templateUrl : "product-description.html",
 			 controller :['$scope', '$http', function($scope, $http) {
-				 $http.get('http://localhost:8181/back-store/data/description?id=' + $scope.productId).success(function(data) {
+				 $http.get({url: 'http://localhost:8181/back-store/data/description?', method: 'GET', id: $scope.productId}).success(function(data) {
 					 $scope.descriptionValue = data;
 				 });
 			}],
@@ -19,7 +19,11 @@
 			restrict : 'E',
 			templateUrl : "product-reviews.html",
 			controller :['$scope', '$http', function($scope, $http) {
-				 $http.get('http://localhost:8181/back-store/data/reviews?id=' + $scope.productId).success(function(data) {
+				 $http({
+							  url: 'http://localhost:8181/back-store/data/reviews',
+							  method: 'GET',
+							  params:{id : $scope.productId}
+						 }).success(function(data) {
 					 $scope.reviews = data;
 				 });
 			}],
@@ -32,7 +36,11 @@
 			restrict : "A",
 			templateUrl : "product-specs.html",
 			controller :['$scope', '$http', function($scope, $http) {
-				 $http.get('http://localhost:8181/back-store/data/specification?id=' + $scope.productId).success(function(data) {
+				 $http({
+					 url:'http://localhost:8181/back-store/data/specification',
+					 method : 'GET',
+					 id : $scope.productId
+				 	}).success(function(data) {
 					 $scope.specs = data;
 				 });
 			}],
