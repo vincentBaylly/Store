@@ -71,4 +71,20 @@ public class StockController {
 		
 		return specs;
 	}
+	
+	@RequestMapping("/addReview")
+	public Review[] addReview(
+			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
+			@RequestParam(value = "nbStar", required = false, defaultValue = "1") int nbStar, 
+			@RequestParam(value = "body", required = false) String body, 
+			@RequestParam(value = "nbStar", required = false, defaultValue = "jimmyDean@example.org") String author) {
+		
+		Review[] reviews = productService.addReview(id, nbStar, body, author);
+		
+		LOG.debug("Added Review : NbStar: " + nbStar + " body: " + body + " author: " + author );
+		LOG.debug("To the product number :" + id );
+		LOG.debug("Reviews : " + Arrays.toString(reviews));
+		
+		return reviews;
+	}
 }

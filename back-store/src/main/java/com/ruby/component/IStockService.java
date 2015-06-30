@@ -45,4 +45,15 @@ public interface IStockService {
 	 * @return Specification
 	 */
 	public Specification getSpecification(int productId);
+	
+	/**
+	 * add a review to the list and
+	 * return the list of the review
+	 * @param productId the product id
+	 * @param nbStar the number of star
+	 * @param body the message body review
+	 * @param author the email author
+	 * @return Review[] the tab of review
+	 */
+	public Review[] addReview(int productId, int nbStar, String body, String author);
 }

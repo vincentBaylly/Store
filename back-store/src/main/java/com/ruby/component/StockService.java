@@ -92,4 +92,25 @@ public class StockService implements IStockService {
 
 		return getProduct(productId).getSpecs();
 	}
+
+	@Override
+	public Review[] addReview(int productId, int nbStar, String body, String author) {
+		
+		Product productToUpdate = getProduct(productId);
+
+		int newReviewsNb = productToUpdate.getReviews().length + 1;
+		
+		Review reviewToAdd = new Review();
+		reviewToAdd.setNbStar(nbStar);
+		reviewToAdd.setNbStar(nbStar);
+		reviewToAdd.setNbStar(nbStar);
+		
+		Review[] reviewsUpdated = new Review[newReviewsNb];
+		reviewsUpdated = productToUpdate.getReviews();
+		reviewsUpdated[newReviewsNb] = reviewToAdd;
+		
+		productToUpdate.setReviews(reviewsUpdated);
+		
+		return reviewsUpdated;
+	}
 }
