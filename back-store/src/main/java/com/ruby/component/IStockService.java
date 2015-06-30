@@ -1,5 +1,6 @@
 package com.ruby.component;
 
+import com.ruby.store.Product;
 import com.ruby.store.Products;
 import com.ruby.store.Review;
 import com.ruby.store.Specification;
@@ -15,6 +16,13 @@ public interface IStockService {
 	public Products getProducts();
 	
 	/**
+	 * 
+	 * @param productId the id of the product
+	 * @return Product the product in the list of product
+	 */
+	public Product getProduct(int productId);
+	
+	/**
 	 * return the list of the review
 	 * 
 	 * @param productId the id of the product
@@ -26,9 +34,9 @@ public interface IStockService {
 	 * return the description of a product
 	 * 
 	 * @param productId the id of the product
-	 * @return StringBuilder description
+	 * @return String description
 	 */
-	public StringBuilder getDescription(int productId);
+	public String getDescription(int productId);
 	
 	/**
 	 * return the specification of a product

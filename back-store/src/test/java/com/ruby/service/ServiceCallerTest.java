@@ -52,21 +52,66 @@ public class ServiceCallerTest {
     }
     
     @Test
-    public void getProductTest() throws Exception {
+    public void getProductsTest() throws Exception {
     	ResultActions resultActions = mockMvc.perform(get("/data/products"));
     	resultActions.andExpect(status().isOk());
     	resultActions.andExpect(content().contentType(contentType));
-    	resultActions.andExpect(jsonPath("$[0].size", hasSize(2)));
-    	resultActions.andExpect(jsonPath("$productList[0].id", is(this.products.getProductList().get(0).getId())));
-    	resultActions.andExpect(jsonPath("$productList[0].name", is(this.products.getProductList().get(0).getName())));
-    	resultActions.andExpect(jsonPath("$productList[0].price", is(this.products.getProductList().get(0).getPrice())));
-    	resultActions.andExpect(jsonPath("$productList[0].purchasable", is(this.products.getProductList().get(0).isPurchasable())));
-    	//resultActions.andExpect(jsonPath("$productList[0].description", is(this.products.getProductList().get(0).getDescription())));
-    	resultActions.andExpect(jsonPath("$productList[1].id", is(this.products.getProductList().get(1).getId())));
-    	resultActions.andExpect(jsonPath("$productList[1].name", is(this.products.getProductList().get(1).getName())));
-    	resultActions.andExpect(jsonPath("$productList[1].price", is(this.products.getProductList().get(1).getPrice())));
-    	resultActions.andExpect(jsonPath("$productList[1].purchasable", is(this.products.getProductList().get(1).isPurchasable())));
-    	//resultActions.andExpect(jsonPath("$productList[1].description", is(this.products.getProductList().get(0).getDescription())));
+    	resultActions.andExpect(jsonPath("$", hasSize(2)));
+    	resultActions.andExpect(jsonPath("$[0].id", is(this.products.getProductList().get(0).getId())));
+    	resultActions.andExpect(jsonPath("$[0].name", is(this.products.getProductList().get(0).getName())));
+    	resultActions.andExpect(jsonPath("$[0].price", is(this.products.getProductList().get(0).getPrice())));
+    	resultActions.andExpect(jsonPath("$[0].purchasable", is(this.products.getProductList().get(0).isPurchasable())));
+    	resultActions.andExpect(jsonPath("$[0].description", is(this.products.getProductList().get(0).getDescription())));
+    	resultActions.andExpect(jsonPath("$[1].id", is(this.products.getProductList().get(1).getId())));
+    	resultActions.andExpect(jsonPath("$[1].name", is(this.products.getProductList().get(1).getName())));
+    	resultActions.andExpect(jsonPath("$[1].price", is(this.products.getProductList().get(1).getPrice())));
+    	resultActions.andExpect(jsonPath("$[1].purchasable", is(this.products.getProductList().get(1).isPurchasable())));
+    	resultActions.andExpect(jsonPath("$[1].description", is(this.products.getProductList().get(1).getDescription())));
+    }
+    
+    @Test
+    public void getProductTest() throws Exception {
+    	ResultActions resultActions = mockMvc.perform(get("/data/product?id=1"));
+    	resultActions.andExpect(status().isOk());
+    	resultActions.andExpect(content().contentType(contentType));
+    	resultActions.andExpect(jsonPath("$.id", is(this.products.getProductList().get(0).getId())));
+    	resultActions.andExpect(jsonPath("$.name", is(this.products.getProductList().get(0).getName())));
+    	resultActions.andExpect(jsonPath("$.price", is(this.products.getProductList().get(0).getPrice())));
+    	resultActions.andExpect(jsonPath("$.purchasable", is(this.products.getProductList().get(0).isPurchasable())));
+    	resultActions.andExpect(jsonPath("$.description", is(this.products.getProductList().get(0).getDescription())));
+    }
+    
+    @Test
+    public void getReviewsTest() throws Exception {
+    	ResultActions resultActions = mockMvc.perform(get("/data/reviews?id=1"));
+    	resultActions.andExpect(status().isOk());
+    	resultActions.andExpect(content().contentType(contentType));
+    	resultActions.andExpect(jsonPath("$", hasSize(2)));
+    	resultActions.andExpect(jsonPath("$[0].nbStar", is(this.products.getProductList().get(0).getReviews()[0].getNbStar())));
+    	resultActions.andExpect(jsonPath("$[0].body", is(this.products.getProductList().get(0).getReviews()[0].getBody())));
+    	resultActions.andExpect(jsonPath("$[0].author", is(this.products.getProductList().get(0).getReviews()[0].getAuthor())));
+    	resultActions.andExpect(jsonPath("$[1].nbStar", is(this.products.getProductList().get(0).getReviews()[1].getNbStar())));
+    	resultActions.andExpect(jsonPath("$[1].body", is(this.products.getProductList().get(0).getReviews()[1].getBody())));
+    	resultActions.andExpect(jsonPath("$[1].author", is(this.products.getProductList().get(0).getReviews()[1].getAuthor())));
+    }
+    
+    @Test
+    public void getDescriptionTest() throws Exception {
+    	ResultActions resultActions = mockMvc.perform(get("/data/description?id=1"));
+    	resultActions.andExpect(status().isOk());
+    	resultActions.andExpect(content().contentType(contentType));
+//    	resultActions.andExpect(jsonPath("$", is(this.products.getProductList().get(0).getDescription())));
+    }
+    
+    @Test
+    public void getSpecificationTest() throws Exception {
+    	ResultActions resultActions = mockMvc.perform(get("/data/specification?id=1"));
+    	resultActions.andExpect(status().isOk());
+    	resultActions.andExpect(content().contentType(contentType));
+    	resultActions.andExpect(jsonPath("$.shine", is(this.products.getProductList().get(0).getSpecs().getShine())));
+    	resultActions.andExpect(jsonPath("$.faces", is(this.products.getProductList().get(0).getSpecs().getFaces())));
+    	resultActions.andExpect(jsonPath("$.rarity", is(this.products.getProductList().get(0).getSpecs().getRarity())));
+    	resultActions.andExpect(jsonPath("$.color", is(this.products.getProductList().get(0).getSpecs().getColor())));
     }
 	
 }

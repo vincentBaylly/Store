@@ -25,12 +25,21 @@ public class StockController {
 	private IStockService productService;
 
 	@RequestMapping("/products")
-	public Product[] getProducts() {
+	public Object[] getProducts() {
 		Products products = productService.getProducts();
 		
 		LOG.debug("Product List : " + products.toString());
 		
-		return (Product[])products.getProductList().toArray();
+		return (Object[])products.getProductList().toArray();
+	}
+	
+	@RequestMapping("/product")
+	public Object getProduct(@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+		Product product = productService.getProduct(id);
+		
+		LOG.debug("Product List : " + product.toString());
+		
+		return (Object)product;
 	}
 
 	@RequestMapping("/reviews")
@@ -44,9 +53,9 @@ public class StockController {
 	}
 
 	@RequestMapping("/description")
-	public StringBuilder getDescription(
+	public String getDescription(
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-		StringBuilder desc = productService.getDescription(id);
+		String desc = productService.getDescription(id);
 		
 		LOG.debug("Description : " + desc.toString());
 		

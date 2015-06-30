@@ -25,8 +25,8 @@ public class Product {
 	@XmlElement(name = "Purchasable")
 	private boolean purchasable;
 	
-	@XmlElement(name = "Description", type = StringBuilder.class)
-	private StringBuilder description;
+	@XmlElement(name = "Description")
+	private String description;
 	
 	@XmlElement(name = "Specification", type = Specification.class)
 	private Specification specs;
@@ -67,11 +67,11 @@ public class Product {
 		this.purchasable = purchasable;
 	}
 	
-	public StringBuilder getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(StringBuilder description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

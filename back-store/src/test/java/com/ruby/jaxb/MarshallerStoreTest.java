@@ -53,14 +53,16 @@ public class MarshallerStoreTest {
 		try {
 
 			File file = new File("src/test/resources/file.xml");
-			JAXBContext jaxbContext = JAXBContext.newInstance(Products.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Products.class,
+					Product.class, Review.class, Specification.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Products products = (Products) jaxbUnmarshaller.unmarshal(file);
 //			System.out.println(products.toString());
 
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			LOG.error("error on unmashalling products", e);
+			Assert.fail();
 		}
 	}
 
@@ -79,6 +81,8 @@ public class MarshallerStoreTest {
 
 		// Reviews Table for the Dodecahedron Product
 		dodecahedron.setReviews(getReviews(1));
+		
+		dodecahedron.setSpecs(getSpecification(1));
 
 		// Icosahedron Product
 		Product icosahedron = new Product();
@@ -91,7 +95,9 @@ public class MarshallerStoreTest {
 
 		// Reviews Table for the Icosahedron Product
 		icosahedron.setReviews(getReviews(2));
-
+		
+		icosahedron.setSpecs(getSpecification(2));
+		
 		// Product List
 		Products products = new Products();
 		products.getProductList().add(dodecahedron);
@@ -137,7 +143,7 @@ public class MarshallerStoreTest {
 		return reviews;
 	}
 
-	public StringBuilder getDescription(int productId) {
+	public String getDescription(int productId) {
 
 		LOG.debug("Generate the description");
 
@@ -163,7 +169,7 @@ public class MarshallerStoreTest {
 
 		LOG.debug("Send the description to the frontEnd");
 
-		return sb;
+		return sb.toString();
 	}
 
 	public Specification getSpecification(int productId) {
