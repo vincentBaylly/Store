@@ -1,5 +1,7 @@
 package com.ruby.component;
 
+import java.sql.BatchUpdateException;
+
 import com.ruby.store.Product;
 import com.ruby.store.Products;
 import com.ruby.store.Review;
@@ -54,6 +56,17 @@ public interface IStockService {
 	 * @param body the message body review
 	 * @param author the email author
 	 * @return Review[] the tab of review
+	 * @throws BatchUpdateException 
 	 */
-	public Review[] addReview(int productId, int nbStar, String body, String author);
+	public Review[] addReview(int productId, int nbStar, String body, String author) throws BatchUpdateException;
+	
+	/**
+	 * remove a review to the list and
+	 * return the list of the review
+	 * @param productId
+	 * @param reviewId
+	 * @return Review[] the tab of review
+	 * @throws BatchUpdateException 
+	 */
+	public Review[] removeReview(int productId, int reviewId) throws BatchUpdateException;
 }

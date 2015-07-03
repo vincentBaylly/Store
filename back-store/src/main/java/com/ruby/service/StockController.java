@@ -1,5 +1,6 @@
 package com.ruby.service;
 
+import java.sql.BatchUpdateException;
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -75,14 +76,42 @@ public class StockController {
 	@RequestMapping("/addReview")
 	public Review[] addReview(
 			@RequestParam(value = "id", required = false, defaultValue = "0") int id,
-			@RequestParam(value = "nbStar", required = false, defaultValue = "1") int nbStar, 
+			@RequestParam(value = "nbstar", required = false, defaultValue = "1") int nbStar, 
 			@RequestParam(value = "body", required = false) String body, 
-			@RequestParam(value = "nbStar", required = false, defaultValue = "jimmyDean@example.org") String author) {
+			@RequestParam(value = "author", required = false, defaultValue = "jimmyDean@example.org") String author) {
 		
-		Review[] reviews = productService.addReview(id, nbStar, body, author);
+		Review[] reviews = null;
+		try{
+			
+			reviews = productService.addReview(id, nbStar, body, author);
+			
+		}catch(BatchUpdateException e){
+			LOG.error("Error On Update review");
+		}
 		
 		LOG.debug("Added Review : NbStar: " + nbStar + " body: " + body + " author: " + author );
 		LOG.debug("To the product number :" + id );
+		LOG.debug("Reviews : " + Arrays.toString(reviews));
+		
+		return reviews;
+	}
+	
+	@RequestMapping("/removeReview")
+	public Review[] removeReview(
+			@RequestParam(value = "productid", required = false, defaultValue = "0") int productId,
+			@RequestParam(value = "reviewid", required = false, defaultValue = "0") int reviewId) {
+		
+		Review[] reviews = null;
+		try{
+			
+			reviews = productService.removeReview(productId, reviewId);
+			
+		}catch(BatchUpdateException e){
+			LOG.error("Error On Delete review");
+		}
+		
+		LOG.debug("Remove Review : " + reviewId );
+		LOG.debug("To the product number :" + productId );
 		LOG.debug("Reviews : " + Arrays.toString(reviews));
 		
 		return reviews;

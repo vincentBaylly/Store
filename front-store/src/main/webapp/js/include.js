@@ -6,7 +6,7 @@
 			 restrict : "E",
 			 templateUrl : "product-description.html",
 			 controller :['$scope', '$http', function($scope, $http) {
-				 $http.get({url: 'http://localhost:8181/back-store/data/description?', method: 'GET', id: $scope.productId}).success(function(data) {
+				 $http({url: 'http://localhost:8181/back-store/data/description', method: 'GET', params:{id: $scope.productId}}).success(function(data) {
 					 $scope.descriptionValue = data;
 				 });
 			}],
@@ -39,7 +39,7 @@
 				 $http({
 					 url:'http://localhost:8181/back-store/data/specification',
 					 method : 'GET',
-					 id : $scope.productId
+					 params:{id : $scope.productId}
 				 	}).success(function(data) {
 					 $scope.specs = data;
 				 });

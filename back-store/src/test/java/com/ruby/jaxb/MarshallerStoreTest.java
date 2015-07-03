@@ -38,7 +38,7 @@ public class MarshallerStoreTest {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
 			jaxbMarshaller.marshal(products, file);
-//			jaxbMarshaller.marshal(products, System.out);
+			//jaxbMarshaller.marshal(products, System.out);
 
 		} catch (JAXBException e) {
 			LOG.error("error on mashalling products", e);
@@ -57,8 +57,9 @@ public class MarshallerStoreTest {
 					Product.class, Review.class, Specification.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Products products = (Products) jaxbUnmarshaller.unmarshal(file);
-//			System.out.println(products.toString());
+			//Products products = (Products) 
+			jaxbUnmarshaller.unmarshal(file);
+			//System.out.println(products.toString());
 
 		} catch (JAXBException e) {
 			LOG.error("error on unmashalling products", e);
@@ -115,12 +116,14 @@ public class MarshallerStoreTest {
 
 		// Review 1
 		Review review1 = new Review();
+		review1.setId(1);
 		review1.setNbStar(5);
 		review1.setBody("I love this product!");
 		review1.setAuthor("joe@thomas.com");
 
 		// Review 2
 		Review review2 = new Review();
+		review2.setId(2);
 		review2.setNbStar(1);
 		review2.setBody("This product sucks");
 		review2.setAuthor("tim@hater.com");
@@ -128,6 +131,7 @@ public class MarshallerStoreTest {
 		if (productId == 2) {
 			// Review 3
 			Review review3 = new Review();
+			review3.setId(3);
 			review3.setNbStar(5);
 			review3.setBody("This one shine a lots!");
 			review3.setAuthor("vince@flash.com");

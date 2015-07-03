@@ -3,9 +3,9 @@ package com.ruby.service;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.nio.charset.Charset;
@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.ruby.component.StockService;
@@ -71,7 +72,7 @@ public class ServiceCallerTest {
     
     @Test
     public void getProductTest() throws Exception {
-    	ResultActions resultActions = mockMvc.perform(get("/data/product?id=1"));
+    	ResultActions resultActions = mockMvc.perform(get("/data/product").param("id", "1"));
     	resultActions.andExpect(status().isOk());
     	resultActions.andExpect(content().contentType(contentType));
     	resultActions.andExpect(jsonPath("$.id", is(this.products.getProductList().get(0).getId())));
@@ -83,7 +84,7 @@ public class ServiceCallerTest {
     
     @Test
     public void getReviewsTest() throws Exception {
-    	ResultActions resultActions = mockMvc.perform(get("/data/reviews?id=1"));
+    	ResultActions resultActions = mockMvc.perform(get("/data/reviews").param("id", "1"));
     	resultActions.andExpect(status().isOk());
     	resultActions.andExpect(content().contentType(contentType));
     	resultActions.andExpect(jsonPath("$", hasSize(2)));
@@ -97,7 +98,7 @@ public class ServiceCallerTest {
     
     @Test
     public void getDescriptionTest() throws Exception {
-    	ResultActions resultActions = mockMvc.perform(get("/data/description?id=1"));
+    	ResultActions resultActions = mockMvc.perform(get("/data/description").param("id", "1"));
     	resultActions.andExpect(status().isOk());
     	resultActions.andExpect(content().contentType(contentType));
 //    	resultActions.andExpect(jsonPath("$", is(this.products.getProductList().get(0).getDescription())));
@@ -105,13 +106,48 @@ public class ServiceCallerTest {
     
     @Test
     public void getSpecificationTest() throws Exception {
-    	ResultActions resultActions = mockMvc.perform(get("/data/specification?id=1"));
+    	ResultActions resultActions = mockMvc.perform(get("/data/specification").param("id", "1"));
     	resultActions.andExpect(status().isOk());
     	resultActions.andExpect(content().contentType(contentType));
     	resultActions.andExpect(jsonPath("$.shine", is(this.products.getProductList().get(0).getSpecs().getShine())));
     	resultActions.andExpect(jsonPath("$.faces", is(this.products.getProductList().get(0).getSpecs().getFaces())));
     	resultActions.andExpect(jsonPath("$.rarity", is(this.products.getProductList().get(0).getSpecs().getRarity())));
     	resultActions.andExpect(jsonPath("$.color", is(this.products.getProductList().get(0).getSpecs().getColor())));
+    }
+    
+    @Test
+    public void addReviewTest() throws Exception {
+    	
+    	String nbStar = "4";
+    	String body = "this is a test";
+    	String author = "test@testcom";
+    	
+    	MockHttpServletRequestBuilder mockHttpServletReqB = get("/data/addReview");
+    	mockHttpServletReqB.param("id", "1");
+    	mockHttpServletReqB.param("nbstar", nbStar);
+    	mockHttpServletReqB.param("body", body);
+    	mockHttpServletReqB.param("author", author);
+    	
+    	ResultActions resultActions = mockMvc.perform(mockHttpServletReqB);
+    	resultActions.andExpect(status().isOk());
+    	resultActions.andExpect(content().contentType(contentType));
+    	resultActions.andExpect(jsonPath("$", hasSize(3)));
+    	resultActions.andExpect(jsonPath("$[2].nbStar", is(Integer.valueOf(nbStar))));
+    	resultActions.andExpect(jsonPath("$[2].body", is(body)));
+    	resultActions.andExpect(jsonPath("$[2].author", is(author)));
+    }
+    
+    @Test
+    public void removeReviewTest() throws Exception {
+    	
+    	MockHttpServletRequestBuilder mockHttpServletReqB = get("/data/removeReview");
+    	mockHttpServletReqB.param("productid", "1");
+    	mockHttpServletReqB.param("review", "2");
+    	
+    	ResultActions resultActions = mockMvc.perform(mockHttpServletReqB);
+    	resultActions.andExpect(status().isOk());
+    	resultActions.andExpect(content().contentType(contentType));
+    	resultActions.andExpect(jsonPath("$", hasSize(2)));
     }
 	
 }

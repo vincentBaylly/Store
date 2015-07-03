@@ -2,10 +2,14 @@ package com.ruby.store;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Review {
+	
+	@XmlAttribute(name = "Id")
+	private int id;
 	
 	@XmlElement(name = "NbStar")
 	private int nbStar;
@@ -15,6 +19,14 @@ public class Review {
 	
 	@XmlElement(name = "Author")
 	private String author;
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public int getNbStar() {
 		return nbStar;
@@ -42,7 +54,7 @@ public class Review {
 	
 	@Override
 	public String toString() {
-		return "Review [nbStar=" + nbStar + ", body=" + body + ", author="
+		return "Review [id=" + id + ", nbStar=" + nbStar + ", body=" + body + ", author="
 				+ author + "]";
 	}
 }

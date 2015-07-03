@@ -1,16 +1,13 @@
 package com.ruby.component;
 
-import java.io.File;
-import java.net.URISyntaxException;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import java.sql.BatchUpdateException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.ruby.dao.DAOFactory;
+import com.ruby.dao.ProductDAO;
 import com.ruby.store.Product;
 import com.ruby.store.Products;
 import com.ruby.store.Review;
@@ -24,30 +21,12 @@ public class StockService implements IStockService {
 
 	private Products products;
 	
-	public void init(){
-	
-		try {
-			
-			File file = new File(this.getClass().getResource("/data/products.xml").toURI());
-			
-			
-			// create JAXB context and instantiate marshaller
-			JAXBContext context = JAXBContext.newInstance(Products.class, Product.class, Specification.class, Review.class);
-	
-			Unmarshaller unmarshaller = context.createUnmarshaller();
-			products = (Products) unmarshaller.unmarshal(file);
-			
-		} catch (URISyntaxException ex) {
-			LOG.error("file not find", ex);
-		} catch (JAXBException ex) {
-			LOG.error("jaxb Exception on product unmarshalling element", ex);
-		}
-	}
-	
 	@Override
 	public Products getProducts() {
-
-		init();
+		
+		ProductDAO productDAO = (ProductDAO)DAOFactory.getProductDAO();
+		
+		products = productDAO.load();
 
 		LOG.debug("Send the gem to the frontEnd");
 
@@ -94,7 +73,9 @@ public class StockService implements IStockService {
 	}
 
 	@Override
-	public Review[] addReview(int productId, int nbStar, String body, String author) {
+	public Review[] addReview(int productId, int nbStar, String body, String author) throws BatchUpdateException {
+		
+		ProductDAO productDAO = (ProductDAO)DAOFactory.getProductDAO();
 		
 		Product productToUpdate = getProduct(productId);
 
@@ -102,14 +83,45 @@ public class StockService implements IStockService {
 		
 		Review reviewToAdd = new Review();
 		reviewToAdd.setNbStar(nbStar);
-		reviewToAdd.setNbStar(nbStar);
-		reviewToAdd.setNbStar(nbStar);
+		reviewToAdd.setBody(body);
+		reviewToAdd.setAuthor(author);
 		
 		Review[] reviewsUpdated = new Review[newReviewsNb];
-		reviewsUpdated = productToUpdate.getReviews();
-		reviewsUpdated[newReviewsNb] = reviewToAdd;
+		for(int i = 0; i < productToUpdate.getReviews().length; i++){
+			reviewsUpdated[i] = productToUpdate.getReviews()[i]; 
+		}
+		reviewsUpdated[newReviewsNb - 1] = reviewToAdd;
 		
 		productToUpdate.setReviews(reviewsUpdated);
+		
+		if(!productDAO.update(products)){
+			throw new BatchUpdateException();
+		}
+		
+		return reviewsUpdated;
+	}
+
+	@Override
+	public Review[] removeReview(int productId, int reviewId) throws BatchUpdateException{
+		
+		ProductDAO productDAO = (ProductDAO)DAOFactory.getProductDAO();
+		
+		Product productToUpdate = getProduct(productId);
+
+		int newReviewsNb = productToUpdate.getReviews().length - 1;
+		
+		Review[] reviewsUpdated = new Review[newReviewsNb];
+		for(int i = 0; i < productToUpdate.getReviews().length; i++){
+			if(reviewId != productToUpdate.getReviews()[i].getId()){
+				reviewsUpdated[i] = productToUpdate.getReviews()[i]; 
+			}
+		}
+		
+		productToUpdate.setReviews(reviewsUpdated);
+		
+		if(!productDAO.update(products)){
+			throw new BatchUpdateException();
+		}
 		
 		return reviewsUpdated;
 	}
