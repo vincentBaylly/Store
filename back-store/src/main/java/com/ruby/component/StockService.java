@@ -16,35 +16,34 @@ import com.ruby.store.Specification;
 @Component
 public class StockService implements IStockService {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(StockService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StockService.class);
 
 	private Products products;
-	
+
 	@Override
 	public Products getProducts() {
-		
-		ProductDAO productDAO = (ProductDAO)DAOFactory.getProductDAO();
-		
+
+		ProductDAO productDAO = (ProductDAO) DAOFactory.getProductDAO();
+
 		products = productDAO.load();
 
 		LOG.debug("Send the gem to the frontEnd");
 
 		return products;
 	}
-	
+
 	@Override
 	public Product getProduct(int productId) {
-		
+
 		Product productToRetrieve = null;
-		
-		for(Product product : products.getProductList()){
-			if(Integer.valueOf(productId).equals(product.getId())){
+
+		for (Product product : products.getProductList()) {
+			if (Integer.valueOf(productId).equals(product.getId())) {
 				productToRetrieve = product;
 				break;
 			}
 		}
-		
+
 		return productToRetrieve;
 	}
 
@@ -74,55 +73,55 @@ public class StockService implements IStockService {
 
 	@Override
 	public Review[] addReview(int productId, int nbStar, String body, String author) throws BatchUpdateException {
-		
-		ProductDAO productDAO = (ProductDAO)DAOFactory.getProductDAO();
-		
+
+		ProductDAO productDAO = (ProductDAO) DAOFactory.getProductDAO();
+
 		Product productToUpdate = getProduct(productId);
 
 		int newReviewsNb = productToUpdate.getReviews().length + 1;
-		
+
 		Review reviewToAdd = new Review();
 		reviewToAdd.setNbStar(nbStar);
 		reviewToAdd.setBody(body);
 		reviewToAdd.setAuthor(author);
-		
+
 		Review[] reviewsUpdated = new Review[newReviewsNb];
-		for(int i = 0; i < productToUpdate.getReviews().length; i++){
-			reviewsUpdated[i] = productToUpdate.getReviews()[i]; 
+		for (int i = 0; i < productToUpdate.getReviews().length; i++) {
+			reviewsUpdated[i] = productToUpdate.getReviews()[i];
 		}
 		reviewsUpdated[newReviewsNb - 1] = reviewToAdd;
-		
+
 		productToUpdate.setReviews(reviewsUpdated);
-		
-		if(!productDAO.update(products)){
+
+		if (!productDAO.update(products)) {
 			throw new BatchUpdateException();
 		}
-		
+
 		return reviewsUpdated;
 	}
 
 	@Override
-	public Review[] removeReview(int productId, int reviewId) throws BatchUpdateException{
-		
-		ProductDAO productDAO = (ProductDAO)DAOFactory.getProductDAO();
-		
+	public Review[] removeReview(int productId, int reviewId) throws BatchUpdateException {
+
+		ProductDAO productDAO = (ProductDAO) DAOFactory.getProductDAO();
+
 		Product productToUpdate = getProduct(productId);
 
 		int newReviewsNb = productToUpdate.getReviews().length - 1;
-		
+
 		Review[] reviewsUpdated = new Review[newReviewsNb];
-		for(int i = 0; i < productToUpdate.getReviews().length; i++){
-			if(reviewId != productToUpdate.getReviews()[i].getId()){
-				reviewsUpdated[i] = productToUpdate.getReviews()[i]; 
+		for (int i = 0; i < productToUpdate.getReviews().length; i++) {
+			if (reviewId != productToUpdate.getReviews()[i].getId()) {
+				reviewsUpdated[i] = productToUpdate.getReviews()[i];
 			}
 		}
-		
+
 		productToUpdate.setReviews(reviewsUpdated);
-		
-		if(!productDAO.update(products)){
+
+		if (!productDAO.update(products)) {
 			throw new BatchUpdateException();
 		}
-		
+
 		return reviewsUpdated;
 	}
 }

@@ -1,21 +1,79 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html ng-app="gemStore"> -->
-<!-- 	<head> -->
-<!-- 		<link rel="stylesheet" type="text/css" -->
-<!-- 			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" /> -->
-<!-- 		<script type="text/javascript" -->
-<!-- 			src="https://code.angularjs.org/1.2.15/angular.min.js"></script> -->
-<!-- 		<script type="text/javascript" src="js/app.js"></script> -->
-<!-- 		<script type="text/javascript" src="js/include.js"></script> -->
-<!-- 	</head> -->
-<!-- 	<body ng-controller="ProductDescription"> -->
-<!-- 		<!-- onchange="showDescription()" --> -->
-<!-- 		<select ng-model="selectedDescription" ng-change='showDescription()'> -->
-<!-- 			<option value="1">Description from product 1</option> -->
-<!-- 			<option value="2">Description from product 2</option> -->
-<!-- 		</select> -->
-<!-- 		<button ng-click='showDescription()'>greet</button> -->
-<!-- 		<h4>Description</h4> -->
-<!-- 		<blockquote>{{description}}</blockquote> -->
-<!-- 	</body> -->
-<!-- </html> -->
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/computhand.css" />
+<script type="text/javascript">
+	var app = angular.module('store', []);
+	
+	var toggled = 0;
+	$(document).ready(function() {
+		$('.toggle').click(function() {
+			$('.menu').slideToggle();
+			if (toggled == 0) {
+				$('.burgx3').stop().transition({
+					rotate : "45",
+					"margin-top" : "13px"
+				});
+				$('.burgx2').stop().transition({
+					opacity : "0"
+				}, "fast");
+				$('.burgx').stop().transition({
+					rotate : "-45",
+					"margin-top" : "13px"
+				});
+				toggled++;
+			} else {
+				$('.burgx3').stop().transition({
+					rotate : "+=135",
+					"margin-top" : "3px"
+				});
+				$('.burgx2').transition({
+					opacity : "1"
+				}, "fast");
+				$('.burgx').stop().transition({
+					rotate : "-=135",
+					"margin-top" : "13px"
+				});
+				toggled--;
+			}
+		});
+	});
+	
+</script>
+</head>
+<body ng-app="store">
+	<header></header>
+	<div class="col-sm-1">
+		<div id="navigation">
+			<div class="toggle">
+				<div class="burgx"></div>
+				<div class="burgx2"></div>
+				<div class="burgx3"></div>
+			</div>
+			<!-- Hamburger Menu -->
+			<div class="menu">
+				<ul>
+					<li><a href="#home">home</a></li>
+					<li><a href="#realisation">realisation</a></li>
+					<li><a href="#resume">resume</a></li>
+					<li><a href="#client">client</a></li>
+					<li><a href="#contact">contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-11 paddingtop">
+		<div class="list-group">	
+			<div class="list-group-item">
+					<h3>
+						{{"say my name"}}
+					</h3>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

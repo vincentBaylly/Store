@@ -1,6 +1,6 @@
 ﻿(function() {
 
-	var app = angular.module('gemStore', [ 'store-include' ]);
+	var app = angular.module('client', [ 'client-include', 'menu-include' ]);
 
 	// Call the back-store service
 	app.controller('StoreController', [

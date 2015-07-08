@@ -1,5 +1,5 @@
 (function() {
-	var app = angular.module('store-include', []);
+	var app = angular.module('client-include', []);
 
 	app.directive("productDescription", function() {
 		 return {
@@ -69,4 +69,5 @@
 			controllerAs : "tab"
 		};
 	});
+
 })();
