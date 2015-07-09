@@ -4,7 +4,7 @@
 	app.directive("menu", function() {
 		return {
 			restrict : "E",
-			templateUrl : "menu.html",
+			templateUrl : "include/menu.html",
 			controller :function() {
 				var toggled = 0;
 				$(document).ready(function() {

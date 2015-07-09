@@ -4,7 +4,7 @@
 	app.directive("productDescription", function() {
 		 return {
 			 restrict : "E",
-			 templateUrl : "product-description.html",
+			 templateUrl : "include/product-description.html",
 			 controller :['$scope', '$http', function($scope, $http) {
 				 $http({url: 'http://localhost:8181/back-store/data/description', method: 'GET', params:{id: $scope.productId}}).success(function(data) {
 					 $scope.descriptionValue = data;
@@ -17,7 +17,7 @@
 	app.directive("productReviews", function() {
 		return {
 			restrict : 'E',
-			templateUrl : "product-reviews.html",
+			templateUrl : "include/product-reviews.html",
 			controller :['$scope', '$http', function($scope, $http) {
 				 $http({
 							  url: 'http://localhost:8181/back-store/data/reviews',
@@ -34,7 +34,7 @@
 	app.directive("productSpecs", function() {
 		return {
 			restrict : "A",
-			templateUrl : "product-specs.html",
+			templateUrl : "include/product-specs.html",
 			controller :['$scope', '$http', function($scope, $http) {
 				 $http({
 					 url:'http://localhost:8181/back-store/data/specification',
@@ -51,7 +51,7 @@
 	app.directive("productTabs", function() {
 		return {
 			restrict : "E",
-			templateUrl : "product-tabs.html",
+			templateUrl : "include/product-tabs.html",
 			scope: {	
 				productId: '=info'
 			},

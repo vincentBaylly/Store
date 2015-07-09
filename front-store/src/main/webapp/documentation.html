@@ -1,70 +1,79 @@
 <!DOCTYPE html>
-<html ng-app="gemStore">
-	<head>
-		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.4/dist/css/bootstrap.min.css" />
-		<script type="text/javascript" scr="https://code.angularjs.org/1.2.15/angular.min.js"></script>
-		<script type="text/javascript" scr="app.js"></script>
-	</head>
-	<body ng-controler="StoreController as store">
-		<h1 class"tooltip-inner">Documentation Angular.js</h1>
-		
-		&emsp;<b>Go to for more information :</b>
-			<ul>
-				<li><a href="https://egghead.io">Egg Head</a></li>
-				<li><a href="https://thinkster.io">Thinkster</a></li>
-			</ul>
-		<ul>
-			<li>Display a String :
-				<ul><li>&lt;p&gt;{{&quot;Hello,&quot;}} + {{&quot; Angular!&quot;}}&lt;/p&gt;</li></ul>
-			</li>
-			<br/>
-			<li>Declaration for the angular module :
+<html ng-app="site">
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.js"></script>
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/angular-include.js"></script>
+<script type="text/javascript" src="js/ang-menu-include.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/computhand.css" />
+</head>
+<body ng-controler="StoreController as store">
+
+	<header>
+		<h1 class="text-center">Documentation Angular.js</h1>
+	</header>
+	<div class="col-sm-1">
+		<menu></menu>
+	</div>
+	<!--  Products Container  -->
+	<div class="col-sm-11 paddingtop">
+		<div class="list-group">
+			<div class="list-group-item">
+				&emsp;<b>Go to for more information :</b>
 				<ul>
-					<li>In the html tag add : <html ng-app=&quot;gemStore&quot;> &lt;!--the scope of this controller is only visible inside the tag--&gt;</li>
-					<li>
-						//JavaScript declaration<br/>
-						var app = angular.module('gemStore', []);
+					<li><a href="https://egghead.io">Egg Head</a></li>
+					<li><a href="https://thinkster.io">Thinkster</a></li>
+				</ul>
+			</div>
+			<div class="list-group-item">
+				Display a String :
+				<ul>
+					<li>&lt;p&gt;{{&quot;Hello,&quot;}} + {{&quot; Angular!&quot;}}&lt;/p&gt;</li>
+				</ul>
+			</div>
+			<div class="list-group-item">
+				Declaration for the angular module :
+				<ul>
+					<li>In the html tag add :
+						<html ng-app=&quot;gemStore&quot;>&lt;!--the scope of this controller is only visible inside the tag--&gt;
+						
+					</li>
+					<li>//JavaScript declaration<br /> var app = angular.module('gemStore', []);
 					</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Declaration for a controller :
+			</div>
+			<div class="list-group-item">
+				Declaration for a controller :
 				<ul>
-					<li>In a html tag add : ng-controler=&quot;StoreController as store&quot; &lt;!--the scope of this controller is only visible inside the tag--&gt;</li>
-					<li>
-						//JavaScript declaration<br/>
-						app.controller('StoreController', function(){});
+					<li>In a html tag add : ng-controler=&quot;StoreController as store&quot; &lt;!--the scope of this controller
+						is only visible inside the tag--&gt;</li>
+					<li>//JavaScript declaration<br /> app.controller('StoreController', function(){});
 					</li>
 				</ul>
-			</li>
-			<li>Declaration for a table :
+			</div>
+			<div class="list-group-item">
+				Declaration for a table :
 				<ul>
-					<li>
-					//JavaScript declaration<br/>
-					var gems = [
-					&emsp;{},
-					&emsp;{}
-					]
+					<li>//JavaScript declaration<br /> var gems = [ &emsp;{}, &emsp;{} ]
 					</li>
-					<li>
-						Iterate on the tab to display in the html : <br/>
-						&emsp;&lt;!--html declaration--&gt;<br/>
-						&emsp;&lt;div ng-repeat=&quot;product in store.products&quot;&gt;<br/>
-						&emsp;&emsp;{{product.tabAttributToDisplay}}<br/>
-						&emsp;&lt;div&gt;
+					<li>Iterate on the tab to display in the html : <br /> &emsp;&lt;!--html declaration--&gt;<br />
+						&emsp;&lt;div ng-repeat=&quot;product in store.products&quot;&gt;<br />
+						&emsp;&emsp;{{product.tabAttributToDisplay}}<br /> &emsp;&lt;div&gt;
 					</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Hide or Show a tag :
+			</div>
+			<div class="list-group-item">
+				Hide or Show a tag :
 				<ul>
 					<li>ng-hide=&quot;store.product.soldOut&quot;</li>
 					<li>no-show=&quot;{{product.images.length}}&quot; (if length is greater than zero)</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Format a value :
-			
+			</div>
+			<div class="list-group-item">
+				Format a value :
 				<ul>
 					<li>{{'1388123412323' | date:'MM/dd/yyyy @ h:mma'}}</li>
 					<li>{{'octagon gem' | uppercase }}</li>
@@ -72,109 +81,72 @@
 					<li>&lt;li ng-repeat=&quot;product in store.products | limitTo:3&quot;&gt;</li>
 					<li>&lt;li ng-repeat=&quot;product in store.products | orderBy:'-price'&quot;&gt;</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Activate a tag if the class is active :<br/>
-				&emsp;&emsp;&lt;!--html declaration--&gt;<br/>
+			</div>
+			<div class="list-group-item">
+				Activate a tag if the class is active :<br /> &emsp;&emsp;&lt;!--html declaration--&gt;<br />
 				<ul>
-					<li>
-						&lt;section ng-init=&quot;tab = 1&quot;&gt;<br/>
-						&emsp;&lt;ul&gt;<br/>
-						&emsp;&emsp;&lt;li ng-class=&quot;{ active:tab === 1 }&quot;&gt;<br/>
-						&emsp;&emsp;&emsp;&lt;a href ng-click=&quot;tab = 1&quot;&gt;Description&lt;/a&gt;<br/>
-						&emsp;&emsp;&lt;/li&gt;<br/>
-						&emsp;&emsp;&lt;li ng-class=&quot;{ active:tab === 2 }&quot;&gt;<br/>
-						&emsp;&emsp;&emsp;&lt;a href ng-click=&quot;tab = 2&quot;&gt;Specifications&lt;/a&gt;<br/>
-						&emsp;&emsp;&lt;/li&gt;<br/>
-						&emsp;&emsp;&lt;li ng-class=&quot;{ active:tab === 3 }&quot;&gt;<br/>
-						&emsp;&emsp;&emsp;&lt;a href ng-click=&quot;tab = 3&quot;&gt;Reviews&lt;/a&gt;<br/>
-						&emsp;&emsp;&lt;/li&gt;<br/>
-						&emsp;&lt;/ul&gt;<br/>
-						&lt;/section&gt;
+					<li>&lt;section ng-init=&quot;tab = 1&quot;&gt;<br /> &emsp;&lt;ul&gt;<br /> &emsp;&emsp;&lt;li
+						ng-class=&quot;{ active:tab === 1 }&quot;&gt;<br /> &emsp;&emsp;&emsp;&lt;a href ng-click=&quot;tab =
+						1&quot;&gt;Description&lt;/a&gt;<br /> &emsp;&emsp;&lt;/li&gt;<br /> &emsp;&emsp;&lt;li ng-class=&quot;{
+						active:tab === 2 }&quot;&gt;<br /> &emsp;&emsp;&emsp;&lt;a href ng-click=&quot;tab =
+						2&quot;&gt;Specifications&lt;/a&gt;<br /> &emsp;&emsp;&lt;/li&gt;<br /> &emsp;&emsp;&lt;li ng-class=&quot;{
+						active:tab === 3 }&quot;&gt;<br /> &emsp;&emsp;&emsp;&lt;a href ng-click=&quot;tab = 3&quot;&gt;Reviews&lt;/a&gt;<br />
+						&emsp;&emsp;&lt;/li&gt;<br /> &emsp;&lt;/ul&gt;<br /> &lt;/section&gt;
 					</li>
-					<li>
-						&lt;blockquote ng-repeat=&quot;review in product.reviews&quot;&gt;<br/>
-						&emsp;&emsp;&lt;b&gt;Stars: {{review.stars}}&lt;/b&gt;<br/>
-						&emsp;&emsp;{{review.body}}<br/>
-						&emsp;&emsp;&lt;cite&gt;by: {{review.author}}&lt;/cite&gt;<br/>
-						&lt;/blockquote&gt;
+					<li>&lt;blockquote ng-repeat=&quot;review in product.reviews&quot;&gt;<br /> &emsp;&emsp;&lt;b&gt;Stars:
+						{{review.stars}}&lt;/b&gt;<br /> &emsp;&emsp;{{review.body}}<br /> &emsp;&emsp;&lt;cite&gt;by:
+						{{review.author}}&lt;/cite&gt;<br /> &lt;/blockquote&gt;
 					</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Declare for a Form :<br/>
-				&emsp;&emsp;&lt;!--html declaration--&gt;<br/>
+			</div>
+			<div class="list-group-item">
+				Declare for a Form :<br /> &emsp;&emsp;&lt;!--html declaration--&gt;<br />
 				<ul>
 					<li>&lt;form name="reviewForm" ng-controller=&quot;ReviewControler as reviewCtrl&quot;
-									ng-submit=&quot;reviewCtrl.addReview(product)&quot; &gt;</li>
-					<li>
-						//JavaScript declaration<br/>
-						app.controller('ReviewController', function(){<br/>
-						&emsp;this.review = {};<br/>
-						&emsp;this.addReview = function(product){<br/>
-						&emsp;&emsp;product.review.push(this.review); //To add the insert review in the reviews tab<br/>
-						&emsp;&emsp;this.review = {}; //To reset the form element<br/>
-						&emsp;}<br/>
-						});
+						ng-submit=&quot;reviewCtrl.addReview(product)&quot; &gt;</li>
+					<li>//JavaScript declaration<br /> app.controller('ReviewController', function(){<br /> &emsp;this.review =
+						{};<br /> &emsp;this.addReview = function(product){<br /> &emsp;&emsp;product.review.push(this.review); //To add
+						the insert review in the reviews tab<br /> &emsp;&emsp;this.review = {}; //To reset the form element<br />
+						&emsp;}<br /> });
 					</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Form validation :<br/>
-				&emsp;&emsp;&lt;!--html declaration--&gt;<br/>
+			</div>
+			<div class="list-group-item">
+				Form validation :<br /> &emsp;&emsp;&lt;!--html declaration--&gt;<br />
 				<ul>
 					<li>novalidate to not use the html validation</li>
 					<li>add in the ng-submit tag : reviewForm.$valid && to control if the form is valid to allow the submission</li>
-					<li>
-						use min and max to define set the valid size of a field:
-						<br/>
-						min=&quot;1&quot; max=&quot;5&quot;
+					<li>use min and max to define set the valid size of a field: <br /> min=&quot;1&quot; max=&quot;5&quot;
 					</li>
 					<li>ng-include=&quot;'product-title.html'&quot;</li>
-					<li> Add a css format with the validation :<br/>
-						&emsp;.ng-invalid.ng-dirty{<br/>
-						&emsp;&emsp;border-color: red;<br/>
-						&emsp;}<br/>
-						<br/>
-						&emsp;.ng-valid.ng-dirty{<br/>
-						&emsp;&emsp;border-color: green;<br/>
+					<li>Add a css format with the validation :<br /> &emsp;.ng-invalid.ng-dirty{<br /> &emsp;&emsp;border-color:
+						red;<br /> &emsp;}<br /> <br /> &emsp;.ng-valid.ng-dirty{<br /> &emsp;&emsp;border-color: green;<br />
 						&emsp;}
 					</li>
 				</ul>
-			</li>
-			<br/>
-			<li>Include a page :
+			</div>
+			<div class="list-group-item">
+				Include a page :
 				<ul>
-					<li>for a basic include add this in an html tag where you want include the page: ng-include="'product-title.html'"
+					<li>for a basic include add this in an html tag where you want include the page:
+						ng-include="'product-title.html'"
 					<li>Element declaration : &lt;product-title&gt;&lt;/product-title&gt;</li>
 					<li>Attribute declaration : &lt;h3 product-title&gt;&lt;/h3&gt;</li>
-					<li>
-						//JavaScript declaration<br/>
-						app.directive('productTitle', function(){<br/>
-						&emsp;return {<br/>
-						&emsp;&emsp;//this<br/>
-						&emsp;&emsp;restrict: 'E', //Stand for Element<br/>
-						&emsp;&emsp;//or that<br/>
-						&emsp;&emsp;restrict: 'A', //Stand for Attribut<br/>
-						&emsp;&emsp;templateUrl: 'product-title.html'<br/>
-						&emsp;};<br/>
-						});
+					<li>//JavaScript declaration<br /> app.directive('productTitle', function(){<br /> &emsp;return {<br />
+						&emsp;&emsp;//this<br /> &emsp;&emsp;restrict: 'E', //Stand for Element<br /> &emsp;&emsp;//or that<br />
+						&emsp;&emsp;restrict: 'A', //Stand for Attribut<br /> &emsp;&emsp;templateUrl: 'product-title.html'<br />
+						&emsp;};<br /> });
 					</li>
-					<li>
-						In the included page product-title.html :<br/>
-						&lt;!--html declaration--&gt;<br/>
-						&lt;h3&gt;<br/>
-						&emsp;{{product.name}}<br/>
-						&emsp;&lt;em class=&quot;pull-right&quot;&gt;{{product.price | currency}}&lt;/em&gt;<br/>
+					<li>In the included page product-title.html :<br /> &lt;!--html declaration--&gt;<br /> &lt;h3&gt;<br />
+						&emsp;{{product.name}}<br /> &emsp;&lt;em class=&quot;pull-right&quot;&gt;{{product.price | currency}}&lt;/em&gt;<br />
 						&lt;/h3&gt;
 					</li>
-					<li>
-						Add a controller to the directive :<br/>
-						controller:function(){//write the behavior of the controller here},
-						controllerAs: 'panels'//write the controller name to use in the page
+					<li>Add a controller to the directive :<br /> controller:function(){//write the behavior of the controller
+						here}, controllerAs: 'panels'//write the controller name to use in the page
 					</li>
 				</ul>
-			</li>
-		</ul>
-	</body>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
